@@ -1,0 +1,97 @@
+---
+title: "Motor Vehicle Accidents in Victoria"
+author:
+- familyname: "Al-Hindi"
+  othernames: "Ibrahim"
+  address: Monash University
+  email: "imalh2@student.monash.edu"
+  correspondingauthor: true
+  qualifications:  "Master of Business Analytics"
+- familyname: "Chouzadjian"
+  othernames: "Arek"
+  address: Monash University
+  email: "acho0007@student.monash.edu"
+  correspondingauthor: true
+  qualifications: "Master of Business Analytics"
+- familyname: "Chen"
+  othernames: "Kaihao"
+  address: Monash University
+  email: "kche154@student.monash.edu"
+  correspondingauthor: true
+  qualifications: "Master of Business Analytics"
+department: "Department of Econometrics and Business Statistics"
+organization: VicRoads
+bibliography: references.bib
+biblio-style: authoryear-comp
+linestretch: 1.5
+output:
+  bookdown::pdf_document2:
+    template: monashreport2.tex
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 8
+    includes:
+      in_header: preamble.tex
+    keep_tex: yes
+    number_sections: yes
+    citation_package: biblatex
+    toc: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      eval = TRUE,
+                      message = FALSE, 
+                      warning = FALSE,
+                      fig.width=6,
+                      fig.height=4)
+```
+
+```{r libraries}
+library(tidyverse)
+library(lubridate)
+library(janitor)
+library(knitr)
+library(kableExtra)
+library(bookdown)
+```
+
+```{r load-data}
+accidents <- read_csv("data/ACCIDENT.csv") %>%
+  clean_names()
+
+locations <- read_csv("data/ACCIDENT_LOCATION.csv") %>%
+  clean_names()
+
+nodes <- read_csv("data/NODE.csv") %>%
+  clean_names()
+
+persons <- read_csv("data/PERSON.csv") %>%
+  clean_names()
+
+vehicles <- read_csv("data/VEHICLE.csv") %>%
+  clean_names()
+```
+
+```{r create-year-hour-day}
+accidents <- accidents %>%
+  mutate(accidentdate = dmy(accidentdate),
+         Year = year(accidentdate),
+         Hour = hour(accidenttime),
+         Weekday = wday(accidentdate, 
+                        label = TRUE,
+                        abbr = FALSE))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

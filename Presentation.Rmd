@@ -1,0 +1,48 @@
+---
+title: "Motor Vehicle Accidents in Victoria"
+output: 
+  flexdashboard::flex_dashboard:
+        vertical_layout: scroll
+        orientation: rows
+        source_code: embed
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(lubridate)
+library(janitor)
+library(knitr)
+library(kableExtra)
+```
+
+```{r load-data}
+accidents <- read_csv("data/ACCIDENT.csv") %>%
+  clean_names()
+
+locations <- read_csv("data/ACCIDENT_LOCATION.csv") %>%
+  clean_names()
+
+nodes <- read_csv("data/NODE.csv") %>%
+  clean_names()
+
+persons <- read_csv("data/PERSON.csv") %>%
+  clean_names()
+
+vehicles <- read_csv("data/VEHICLE.csv") %>%
+  clean_names()
+```
+
+```{r create-year-hour-day}
+accidents <- accidents %>%
+  mutate(accidentdate = dmy(accidentdate),
+         Year = year(accidentdate),
+         Hour = hour(accidenttime),
+         Weekday = wday(accidentdate, 
+                        label = TRUE,
+                        abbr = FALSE))
+```
+
+
+
+
+
