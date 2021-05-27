@@ -9,6 +9,7 @@ output:
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
+library(tidyverse)
 library(lubridate)
 library(janitor)
 library(knitr)
