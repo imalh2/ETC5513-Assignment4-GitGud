@@ -171,7 +171,25 @@ manuf_year_death_rate %>%
        y = "Death Rate")
 ```
 
+\subsubsection*{Regression model residual panel}
 
+```{r regression-model}
+manuf_year_death_rate_lm <- lm(death_rate ~ vehicle_year_manuf, data = manuf_year_death_rate)
+
+resid_panel(manuf_year_death_rate_lm, plot = "all")
+```
+
+\subsubsection*{Goodness of fit tables}
+
+```{r goodness-of-fit-tables}
+tidy(manuf_year_death_rate_lm) %>% 
+  kable() %>% 
+  kable_styling(bootstrap_options = "striped")
+
+glance(manuf_year_death_rate_lm) %>% 
+  kable() %>% 
+  kable_styling(bootstrap_options = "striped")
+```
 
 
 
