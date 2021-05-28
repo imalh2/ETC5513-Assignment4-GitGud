@@ -54,7 +54,6 @@ library(janitor)
 library(knitr)
 library(kableExtra)
 library(bookdown)
-library(plotly)
 library(ggmap)
 library(ggthemes)
 ```
@@ -192,5 +191,54 @@ persons %>%
 ```
 
 Table \@ref(tab:accidents-gender-table) shows that there are more accidents committed by males (171,043) than by females (118,307). Figure \@ref(fig:accidents-gender-plot) reflects that by showing that males commit more accidents than females at all age groups. This could be a result of males being more present on the road than females, for example the majority of truck drivers and taxi/uber drivers are male, therefore representing higher numbers and longer times spent on the road. What is common between both genders, though, is that the accident numbers for are highest as young and inexperienced drivers before steadily declining due to age and experience. This is consistent with the findings from @gislason1997medical.
+
+
+\subsection*{User Type Death Rate}
+
+```{r user-death-rate, fig.cap="Death rate by road user type"}
+user_type <- persons %>% 
+  count(road_user_type_desc, 
+        name = "User")
+
+user_type_fatal <- persons %>% 
+  filter(inj_level_desc == "Fatality") %>% 
+  count(road_user_type_desc, 
+        name = "Fatal")
+
+user_type %>% 
+  left_join(user_type_fatal) %>% 
+  mutate(death_rate = Fatal / User) %>% 
+  
+  ggplot(aes(x = fct_reorder(road_user_type_desc, 
+                             death_rate), 
+             y = death_rate)) +
+  geom_col(fill = "#999999") +
+  labs(x = "User Type",
+       y = "Death Rate") +
+  theme(axis.text.x = element_text(angle = 45,
+                                   hjust = 1))
+  
+```
+
+As per figure \@ref(fig:user-death-rate), **pedestrians** are at the most risk of death per accident, this is expected as pedestrians have no protection at all. **Motorcyclists** and **pillion passengers** (motorcycle passengers) occupy the second and third highest death rate per accident. It is surprising, however, that **bicyclists**'s death rate is similar to car drivers and passengers, as one would expect that bicyclists would have a death rate similar to that of pedestrians or motorcyclists, due to the lack of protection besides a helmet.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
