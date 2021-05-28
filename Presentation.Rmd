@@ -151,3 +151,18 @@ glance(manuf_year_death_rate_lm) %>%
   kable() %>% 
   kable_styling(bootstrap_options = "striped")
 ```
+
+
+Column {.sidebar data-width=350}
+----
+
+***
+
+> **Findings**
+
+1. Accidents become increasingly serious the faster the speed at which they occur. The risk of dying in an accident is nearly 13 times higher in a 110km/h zone (0.064 deaths/accident) than in a 40km/h zone (0.005 deaths/accident). 
+
+
+2. A person's risk of dying in an accident is positively correlated with the age of their vehicle; the newer the make, the less likely it is that a person will be killed in an accident. For every year older a vehicle is, the risk of dying if you have an accident in it increases by 0.0002 deaths per accident. The reason for this is improved safety standards for vehicles. 
+
+***
