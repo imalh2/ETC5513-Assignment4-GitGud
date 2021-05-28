@@ -86,3 +86,32 @@ deaths_by_accident %>%
 
 ggplotly()
 ```
+
+Row {.tabset data-height=500}
+------------
+### **Death rate by year of vehicle manufacture**
+
+```{r join-person-and-vehicle}
+person_vehicle <- persons %>%
+  left_join(vehicles)
+```
+
+```{r total-people-involved-in-accidents-per-manufature-year}
+person_vehicle_total <- person_vehicle %>%
+  group_by(vehicle_year_manuf) %>%
+  tally(name = "Persons",
+        sort = TRUE)
+
+person_vehicle_deaths <- person_vehicle %>%
+  filter(inj_level_desc == "Fatality") %>%
+  group_by(vehicle_year_manuf) %>%
+  tally(name = "Fatalities",
+        sort = TRUE)
+```
+
+```{r join-total-and-deaths}
+death_rate_by_year_manuf <- person_vehicle_total %>%
+  left_join(person_vehicle_deaths) %>%
+  mutate(death_rate = Fatalities/Persons) %>%
+  arrange(desc(vehicle_year_manuf))
+```
