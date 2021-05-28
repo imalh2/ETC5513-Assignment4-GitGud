@@ -54,5 +54,22 @@ Row {.tabset data-height=500}
 
 ### **Deaths by speed zone**
 
+```{r accidents-by-speed-zone}
+accidents_by_speed_zone <- accidents %>%
+  count(speed_zone,
+        name = "Accidents")
+```
 
+```{r deaths-by-speed-zone}
+deaths_by_speed_zone <- accidents %>%
+  group_by(speed_zone) %>%  
+  tally(no_persons_killed,
+        name = "Deaths")
+```
+
+```{r deaths-per-accident-by-speed-zone}
+deaths_by_accident <- accidents_by_speed_zone %>%
+  left_join(deaths_by_speed_zone) %>%
+  mutate(Deaths_by_accident = Deaths/Accidents)
+```
 
