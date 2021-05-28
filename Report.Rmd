@@ -54,6 +54,9 @@ library(janitor)
 library(knitr)
 library(kableExtra)
 library(bookdown)
+library(plotly)
+library(ggmap)
+library(ggthemes)
 ```
 
 ```{r load-data}
@@ -83,11 +86,30 @@ accidents <- accidents %>%
                         abbr = FALSE))
 ```
 
+\section*{Accidents Locations and by Gender}
 
+\subsection*{Accidents Map}
 
+```{r accidents-map, fig.cap="Map of accident locations in Victoria}
+location_box <- c(min(nodes$long), 
+                  min(nodes$lat), 
+                  max(nodes$long), 
+                  max(nodes$lat))
 
+location_map <- get_map(location = location_box, 
+                        source = 'osm')
 
+  ggmap(location_map) + 
+    geom_point(data = nodes,
+               aes(x = long, 
+                   y = lat), 
+               colour="#0072B2", 
+               alpha=0.5, 
+               size = 0.05) +
+    theme_map()
+```
 
+As shown in figure \@ref(fig:accidents-map), accidents are most highly concentrated around metropolitan Melbourne, and gradually reduce in volume the further we move from Melbourne, with pockets of concentrations in the regional cities such as Bendigo, Ballarat and Geelong. This is due to the population being most present in metropolitan Melbourne, resulting in more accidents, and the population declining as we drift away, resulting in less accidents.
 
 
 
