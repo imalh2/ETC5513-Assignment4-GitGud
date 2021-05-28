@@ -151,7 +151,7 @@ deadliest_road %>%
   kable_styling(bootstrap_options = "striped")
 ```
 
-According to table \@ref(tab:accidents-by-road), **Princes Highway**, **High Street** and **Nepean Highway** are the three most accident prone roads in Victoria with `r accidents_per_road[1,2]`, `r accidents_per_road[2,2]`, `r accidents_per_road[3,2]` accidents respectively. It is important to note that roads names "High Street" are very common and are present in various suburbs in Victoria, therefore the "High Street" displayed in the table is likely a combination of all the accidents that occurred in all the High Streets. When examining the deadliest roads from table \@ref(tab:deadliest-road), it is immediately apparent that **Highways** are the deadliest type of road in Victoria, this is likely a result of highways being locations of higher speed zones, which as we have seen from the previous section, lead to higher death rates.
+According to table \@ref(tab:accidents-by-road), **Princes Highway**, **High Street** and **Nepean Highway** are the three most accident prone roads in Victoria with `r accidents_per_road[1,2]`, `r accidents_per_road[2,2]`, `r accidents_per_road[3,2]` accidents, respectively. It is important to note that roads with the name "High Street" are quite common and are present in various suburbs in Victoria, therefore the "High Street" displayed in the table is likely a combination of all the accidents that occurred in all the High Streets. When examining the deadliest roads from table \@ref(tab:deadliest-road), it is immediately apparent that **Highways** are the deadliest type of road in Victoria, this is likely a result of highways being locations of higher speed zones, which as we have seen from the previous section, lead to higher death rates.
 
 \subsection*{Accidents by Gender}
 
@@ -166,7 +166,7 @@ persons <- persons %>%
 persons %>% 
   filter(road_user_type_desc == "Drivers",
          !is.na(sex)) %>% 
-  count(sex,
+  count(Sex = sex,
         name = "Accidents",
         sort = TRUE) %>% 
   kable(caption = "Number of accidents by gender") %>% 
@@ -190,10 +190,10 @@ persons %>%
   xlab("Age")
 ```
 
-Table \@ref(tab:accidents-gender-table) shows that there are more accidents committed by males (171,043) than by females (118,307). Figure \@ref(fig:accidents-gender-plot) reflects that by showing that males commit more accidents than females at all age groups. This could be a result of males being more present on the road than females, for example the majority of truck drivers and taxi/uber drivers are male, therefore representing higher numbers and longer times spent on the road. What is common between both genders, though, is that the accident numbers for are highest as young and inexperienced drivers before steadily declining due to age and experience. This is consistent with the findings from @gislason1997medical.
+Table \@ref(tab:accidents-gender-table) shows that there are more accidents committed by males (171,043) than by females (118,307). Figure \@ref(fig:accidents-gender-plot) extends that differential by showing that males commit more accidents than females at all age groups. This could be a result of larger male presence on the roads than females, for example the majority of truck drivers and taxi/uber drivers are male, therefore representing higher numbers and longer times spent on the road. What is common between both genders, however, is that the accident numbers are highest for young and inexperienced drivers before steadily declining as age and experience increase. This is consistent with the findings from @gislason1997medical.
 
 
-\subsection*{User Type Death Rate}
+\subsection*{User Type Death Rates}
 
 ```{r user-death-rate, fig.cap="Death rate by road user type"}
 user_type <- persons %>% 
@@ -220,7 +220,7 @@ user_type %>%
   
 ```
 
-As per figure \@ref(fig:user-death-rate), **pedestrians** are at the most risk of death per accident, this is expected as pedestrians have no protection at all. **Motorcyclists** and **pillion passengers** (motorcycle passengers) occupy the second and third highest death rate per accident. It is surprising, however, that **bicyclists**'s death rate is similar to car drivers and passengers, as one would expect that bicyclists would have a death rate similar to that of pedestrians or motorcyclists, due to the lack of protection besides a helmet.
+As per figure \@ref(fig:user-death-rate), **pedestrians** are at the most risk of death per accident, this is expected as pedestrians have no protection at all. **Motorcyclists** and **pillion passengers** (motorcycle passengers) occupy the second and third highest death rate per accident. It is surprising, however, that **bicyclists**'s death rate is similar to that of car drivers and passengers, as one would expect that bicyclists would have a death rate similar to that of pedestrians or motorcyclists, due to the lack of protection besides a helmet.
 
 
 
