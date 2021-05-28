@@ -158,7 +158,18 @@ death_rate_by_year_manuf <- person_vehicle_total %>%
   arrange(desc(vehicle_year_manuf))
 ```
 
+```{r plot-death-rate-by-year-manuf}
+manuf_year_death_rate <- death_rate_by_year_manuf %>%
+  filter(vehicle_year_manuf >= 1985 & vehicle_year_manuf < 3001)
 
+manuf_year_death_rate %>%
+  ggplot(aes(x = vehicle_year_manuf, 
+             y = death_rate)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Year Manufactured",
+       y = "Death Rate")
+```
 
 
 
