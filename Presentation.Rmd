@@ -73,3 +73,16 @@ deaths_by_accident <- accidents_by_speed_zone %>%
   mutate(Deaths_by_accident = Deaths/Accidents)
 ```
 
+```{r deaths-per-accident-plot}
+deaths_by_accident %>%
+  mutate(speed_zone = as.numeric(speed_zone)) %>%
+  filter(speed_zone %in% seq(30, 110, 10)) %>% 
+
+  ggplot(aes(y = Deaths_by_accident, 
+             x = speed_zone)) + 
+  geom_line() +
+  labs(x = "Speed Zone",
+       y = "Deaths by Accident")
+
+ggplotly()
+```
