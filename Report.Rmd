@@ -117,11 +117,19 @@ deaths_by_accident %>%
              x = speed_zone)) + 
   geom_line() +
   labs(x = "Speed Zone",
-       y = "Deaths by Accident")
+       y = "Death Rate")
 ```
 
+```{r deaths-per-accident-table-rename}
+deaths_by_accident_table <- deaths_by_accident %>%
+  rename("Speed Zone" = speed_zone, "Death Rate" = Deaths_by_accident)
+```
 
-
+```{r deaths-per-accident-table}
+deaths_by_accident_table %>%
+  kable(caption = "Death Rate per Speed Zone") %>%
+  kable_styling(bootstrap_options = "striped")
+```
 
 
 
