@@ -12,6 +12,9 @@ library(flexdashboard)
 library(tidyverse)
 library(lubridate)
 library(janitor)
+library(plotly)
+library(ggResidpanel)
+library(broom)
 library(knitr)
 library(kableExtra)
 ```
@@ -43,7 +46,13 @@ accidents <- accidents %>%
                         abbr = FALSE))
 ```
 
+Part 2 {data-icon="fa-battery-half"}
+===================================== 
 
+Row {.tabset data-height=500}
+------------
+
+### **Deaths by speed zone**
 
 
 
