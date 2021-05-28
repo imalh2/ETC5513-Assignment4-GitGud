@@ -304,11 +304,75 @@
 \begin{document}
 \titlepage
 
-\section*{Accidents Locations and by Gender}
+\section*{Accidents by Locations, Gender and Road User Type}
 
 \subsection*{Accidents Map}
 
+\begin{figure}
+\centering
 \includegraphics{Report_files/figure-latex/accidents-map-1.pdf}
+\caption{\label{fig:accidents-map}Map of accident locations in Victoria}
+\end{figure}
+
+As shown in figure \ref{fig:accidents-map}, accidents are most highly concentrated around metropolitan Melbourne, and gradually reduce in volume the further we move from Melbourne, with pockets of concentrations in the regional cities such as Bendigo, Ballarat and Geelong. This is due to the population being most present in metropolitan Melbourne, resulting in more accidents, and the population declining as we drift away, resulting in less accidents.
+
+\subsection*{Roads with Most Accidents and Highest Death Rates}
+
+\begin{table}
+
+\caption{\label{tab:accidents-by-road}Accidents by road}
+\centering
+\begin{tabular}[t]{l|r}
+\hline
+Road & Accidents\\
+\hline
+PRINCES HIGHWAY & 3581\\
+\hline
+HIGH STREET & 3096\\
+\hline
+NEPEAN HIGHWAY & 2376\\
+\hline
+SPRINGVALE ROAD & 1663\\
+\hline
+SOUTH GIPPSLAND HIGHWAY & 1538\\
+\hline
+SYDNEY ROAD & 1538\\
+\hline
+MONASH FREEWAY & 1533\\
+\hline
+MAROONDAH HIGHWAY & 1335\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+
+\caption{\label{tab:deadliest-road}Deadliest roads}
+\centering
+\begin{tabular}[t]{l|r|r|r}
+\hline
+Road & Accidents & Deaths & Deaths\_per\_accident\\
+\hline
+GLENELG HIGHWAY & 231 & 28 & 0.1212121\\
+\hline
+GOULBURN VALLEY HIGHWAY & 344 & 39 & 0.1133721\\
+\hline
+WIMMERA HIGHWAY & 156 & 17 & 0.1089744\\
+\hline
+MURRAY VALLEY HIGHWAY & 727 & 76 & 0.1045392\\
+\hline
+STRZELECKI HIGHWAY & 106 & 11 & 0.1037736\\
+\hline
+HAMILTON HIGHWAY & 223 & 21 & 0.0941704\\
+\hline
+MELBA HIGHWAY & 211 & 18 & 0.0853081\\
+\hline
+NORTHERN HIGHWAY & 300 & 25 & 0.0833333\\
+\hline
+\end{tabular}
+\end{table}
+
+According to table \ref{tab:accidents-by-road}, Princes Highway, High Street and Nepean Highway are the three most accident prone roads in Victoria. It is important to note that roads names ``High Street'' are very common and are present in various suburbs in Victoria, therefore the ``High Street'' displayed in the table is likely a combination of all the accidents that occurred in all the High Streets. When examining the deadliest roads from table \ref{tab:deadliest-road}, it is immediately apparent that Highways are the deadliest type of road in Victoria, this is likely a result of highways being locations of higher speed zones, which as we have seen from the previous section, result in higher death rates.
 
 \printbibliography
 
