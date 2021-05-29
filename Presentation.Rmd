@@ -61,18 +61,14 @@ accidents_per_year <- accidents %>%
   geom_line() +
   xlab("Year(2006 ~ 2020)") +
   ylab("Number of Car Accidents") +
-  geom_point() +
-  geom_text(aes(label = n), 
-            vjust = -1, 
-            color = "black",
-            size = 2) 
+  geom_point() 
 
 ggplotly( accidents_per_year)
 ```
 
 ### Accidents by weekday
 
-```{r day-plot}
+```{r chen2}
 accidents %>%
   count(Weekday,
         name = "Accidents") %>% 
@@ -85,6 +81,54 @@ accidents %>%
             vjust = -1, 
             color = "black", 
             size = 3)
+```
+
+
+Row {data-width=600}
+--------------------------------
+### Accidents by hour
+
+```{r chen3}
+accidents_by_hour <- accidents %>%
+  count(Hour,
+        name = "Accidents") 
+
+p3 <- accidents_by_hour %>%
+  ggplot(aes(x = Hour, 
+             y = Accidents)) + 
+  geom_line() +
+  xlab("Time") +
+  ylab("Number of Car Accidents") +
+  geom_point()
+
+ggplotly(p3)
+```
+
+
+### Deaths by hour
+
+```{r deaths-by-hour}
+deaths_by_hour <- accidents %>%
+  group_by(Hour) %>%
+  tally(no_persons_killed,
+        name = "Deaths")
+```
+
+```{r deaths-per-accident-by-hour}
+deaths_per_accident_by_hour <- accidents_by_hour %>%
+  left_join(deaths_by_hour) %>%
+  mutate(Deaths_per_accident = round(Deaths/Accidents, digit = 4))
+```
+
+```{r chen4}
+p4 <- deaths_per_accident_by_hour %>%
+  ggplot(aes(x = Hour, 
+             y = Deaths_per_accident)) +
+  geom_line() +
+  xlab("Time") +
+  ylab("Death Rate of Car Accidents") +
+  geom_point()  
+ggplotly(p4)
 ```
 
 
