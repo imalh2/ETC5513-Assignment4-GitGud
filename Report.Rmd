@@ -127,5 +127,17 @@ accidents %>%
 ```
 
 
+## Accidents by hour
 
+```{r accidents-by-hour-plot}
+accidents_by_hour <- accidents %>%
+  count(Hour,
+        name = "Accidents") 
+
+accidents_by_hour %>%
+  ggplot(aes(y = Accidents, 
+             x = Hour)) + 
+  geom_line()
+
+```
 
