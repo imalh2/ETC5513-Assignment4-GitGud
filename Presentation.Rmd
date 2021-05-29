@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       warning = FALSE)
 ```
 
-```{r setup, include=FALSE}
+```{r libraries}
 library(flexdashboard)
 library(tidyverse)
 library(lubridate)
@@ -80,5 +80,32 @@ location_map <- get_map(location = location_box,
     theme_map()
 ```
 
+### **Accidents by Gender**
 
+```{r accidents-gender-table}
+persons <- persons %>%
+  mutate(sex = recode(sex,
+                      "F" = "Female",
+                      "M" = "Male",
+                      "U" = "Unknown"))
+```
+
+```{r accidents-gender-plot}
+persons %>% 
+  filter(road_user_type_desc == "Drivers",
+         sex %in% c("Female",
+                    "Male"),
+         age > 15) %>% 
+  count(age,
+        sex,
+        name = "Accidents") %>% 
+  
+  ggplot(aes(x = age,
+             y = Accidents, 
+             color = sex)) +
+  geom_line() +
+  xlab("Age")
+  
+ggplotly()
+```
 
