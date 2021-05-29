@@ -141,3 +141,29 @@ accidents_by_hour %>%
 
 ```
 
+
+
+## Deaths by hour
+
+```{r deaths-by-hour}
+deaths_by_hour <- accidents %>%
+  group_by(Hour) %>%
+  tally(no_persons_killed,
+        name = "Deaths")
+```
+
+```{r deaths-per-accident-by-hour}
+deaths_per_accident_by_hour <- accidents_by_hour %>%
+  left_join(deaths_by_hour) %>%
+  mutate(Deaths_per_accident = Deaths/Accidents)
+```
+
+```{r deaths per accident by hour plot}
+deaths_per_accident_by_hour %>%
+  ggplot(aes(x = Hour, 
+             y = Deaths_per_accident)) +
+  geom_line()
+```
+
+
+
