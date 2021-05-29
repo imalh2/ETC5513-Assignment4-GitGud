@@ -12,6 +12,9 @@ library(flexdashboard)
 library(tidyverse)
 library(lubridate)
 library(janitor)
+library(plotly)
+library(ggResidpanel)
+library(broom)
 library(knitr)
 library(kableExtra)
 library(plotly)
@@ -43,8 +46,6 @@ accidents <- accidents %>%
                         label = TRUE,
                         abbr = FALSE))
 ```
-
-
 
 Part 1 {data-icon="fa-battery-quarter"}
 ===================================== 
@@ -131,5 +132,123 @@ p4 <- deaths_per_accident_by_hour %>%
 ggplotly(p4)
 ```
 
+Part 2 {data-icon="fa-battery-half"}
+===================================== 
+
+Row {.tabset data-height=500}
+------------
+
+### **Deaths by speed zone**
+
+```{r accidents-by-speed-zone}
+accidents_by_speed_zone <- accidents %>%
+  count(speed_zone,
+        name = "Accidents")
+```
+
+```{r deaths-by-speed-zone}
+deaths_by_speed_zone <- accidents %>%
+  group_by(speed_zone) %>%  
+  tally(no_persons_killed,
+        name = "Deaths")
+```
+
+```{r deaths-per-accident-by-speed-zone}
+deaths_by_accident <- accidents_by_speed_zone %>%
+  left_join(deaths_by_speed_zone) %>%
+  mutate(Deaths_by_accident = Deaths/Accidents)
+```
+
+```{r deaths-per-accident-plot}
+deaths_by_accident %>%
+  mutate(speed_zone = as.numeric(speed_zone)) %>%
+  filter(speed_zone %in% seq(30, 110, 10)) %>% 
+
+  ggplot(aes(y = Deaths_by_accident, 
+             x = speed_zone)) + 
+  geom_line() +
+  labs(x = "Speed Zone",
+       y = "Deaths by Accident")
+
+ggplotly()
+```
+
+Row {.tabset data-height=500}
+------------
+### **Death rate by year of vehicle manufacture**
+
+```{r join-person-and-vehicle}
+person_vehicle <- persons %>%
+  left_join(vehicles)
+```
+
+```{r total-people-involved-in-accidents-per-manufature-year}
+person_vehicle_total <- person_vehicle %>%
+  group_by(vehicle_year_manuf) %>%
+  tally(name = "Persons",
+        sort = TRUE)
+
+person_vehicle_deaths <- person_vehicle %>%
+  filter(inj_level_desc == "Fatality") %>%
+  group_by(vehicle_year_manuf) %>%
+  tally(name = "Fatalities",
+        sort = TRUE)
+```
+
+```{r join-total-and-deaths}
+death_rate_by_year_manuf <- person_vehicle_total %>%
+  left_join(person_vehicle_deaths) %>%
+  mutate(death_rate = Fatalities/Persons) %>%
+  arrange(desc(vehicle_year_manuf))
+```
+
+```{r plot-death-rate-by-year-manuf}
+manuf_year_death_rate <- death_rate_by_year_manuf %>%
+  filter(vehicle_year_manuf >= 1985 & vehicle_year_manuf < 3001)
+
+p1 <- manuf_year_death_rate %>%
+  ggplot(aes(x = vehicle_year_manuf, 
+             y = death_rate)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Year Manufactured",
+       y = "Death Rate")
+
+ggplotly(p1)
+```
+
+### **Regression model**
+
+```{r regression-model}
+manuf_year_death_rate_lm <- lm(death_rate ~ vehicle_year_manuf, data = manuf_year_death_rate)
+
+resid_panel(manuf_year_death_rate_lm, plot = "all")
+
+```
+
+### **Goodness of fit**
+
+```{r}
+tidy(manuf_year_death_rate_lm) %>% 
+  kable() %>% 
+  kable_styling(bootstrap_options = "striped")
+
+glance(manuf_year_death_rate_lm) %>% 
+  kable() %>% 
+  kable_styling(bootstrap_options = "striped")
+```
 
 
+Column {.sidebar data-width=350}
+----
+
+***
+
+> **Findings**
+
+1. Accidents become increasingly serious the faster the speed at which they occur. The risk of dying in an accident is nearly 13 times higher in a 110km/h zone (0.064 deaths/accident) than in a 40km/h zone (0.005 deaths/accident). 
+
+
+2. A person's risk of dying in an accident is positively correlated with the age of their vehicle; the newer the make, the less likely it is that a person will be killed in an accident. For every year older a vehicle is, the risk of dying if you have an accident in it increases by 0.0002 deaths per accident. The reason for this is improved safety standards for vehicles. 
+
+***

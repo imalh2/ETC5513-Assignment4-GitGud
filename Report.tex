@@ -369,6 +369,97 @@ When comparing plot \ref{fig:chen3} and plot \ref{fig:chen4}, we could notice th
 
 The possible reasons for above results are: both 8 o'clock in the morning and 5 o'clock in the afternoon are the commuter time, which make the traffic busier and more cars on roads, so more accidents. However, most of the accidents won't be too server due to the packed traffic. The 2 o'clock in the midnight is different. First, drivers would be more sleepy and more drivers would take the risk of drunk driving after attending parties in the night which make the accidents have a higher death rate.
 
+\section*{Effect of speed and vehicle age on death rate}
+
+\subsection*{Death rate by speed zone}
+
+\includegraphics{Report_files/figure-latex/deaths-per-accident-plot-1.pdf}
+
+\begin{table}
+
+\caption{\label{tab:deaths-per-accident-table}Death Rate per Speed Zone}
+\centering
+\begin{tabular}[t]{l|r|r|r}
+\hline
+Speed Zone & Accidents & Deaths & Death Rate\\
+\hline
+030 & 269 & 2 & 0.0074349\\
+\hline
+040 & 8937 & 47 & 0.0052590\\
+\hline
+050 & 36149 & 342 & 0.0094608\\
+\hline
+060 & 69133 & 727 & 0.0105160\\
+\hline
+070 & 15145 & 259 & 0.0171014\\
+\hline
+075 & 62 & 2 & 0.0322581\\
+\hline
+080 & 27794 & 617 & 0.0221990\\
+\hline
+090 & 940 & 36 & 0.0382979\\
+\hline
+100 & 31240 & 1827 & 0.0584827\\
+\hline
+110 & 2151 & 138 & 0.0641562\\
+\hline
+777 & 249 & 1 & 0.0040161\\
+\hline
+888 & 930 & 6 & 0.0064516\\
+\hline
+999 & 10709 & 30 & 0.0028014\\
+\hline
+\end{tabular}
+\end{table}
+
+For this question, the variable Death Rate is defined as the number of deaths in a given speed zone over the time period analysed, divided by the number of accidents. All of these figures can be seen in the table.
+
+The analysis for this question works on the reasonable assumption that accidents that occur in higher speed zones occur at higher speeds. The analysis shows that there is a very strong association between the level of speed permitted in a certain zone, and the likelihood of dying in an accident in that zone. As the level of speed permitted increases, the probability of dying in an accident rises sharply. The death rate from accidents in 40km/h zones is around 0.005, where as in 110km/h zones, the death rate is around 0.064; that is, you are nearly 13 times more likely to be killed in an accident in a 110km/h zone, as opposed to a 40km/h zone.
+
+The reason for this difference in the death rate is fairly obvious; higher speeds contribute greatly to the severity of accidents. A person's car may be lightly to moderately damaged in a low-speed collision, but is much more likely to suffer massive damage in a high speed collision. This in turn drastically increases the risk of serious injury or death for the occupants.
+
+\subsection*{Death rate by year of vehicle manufacture}
+
+\includegraphics{Report_files/figure-latex/plot-death-rate-by-year-manuf-1.pdf}
+
+\subsubsection*{Regression model residual panel}
+
+\includegraphics{Report_files/figure-latex/regression-model-1.pdf}
+
+\subsubsection*{Goodness of fit tables}
+
+\begin{table}
+\centering
+\begin{tabular}{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 0.4420226 & 0.0627854 & 7.040211 & 0e+00\\
+\hline
+vehicle\_year\_manuf & -0.0002169 & 0.0000314 & -6.918470 & 1e-07\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{r|r|r|r|r|r|r|r|r|r|r|r}
+\hline
+r.squared & adj.r.squared & sigma & statistic & p.value & df & logLik & AIC & BIC & deviance & df.residual & nobs\\
+\hline
+0.5846833 & 0.5724681 & 0.0019542 & 47.86523 & 1e-07 & 1 & 174.5064 & -343.0127 & -338.2622 & 0.0001298 & 34 & 36\\
+\hline
+\end{tabular}
+\end{table}
+
+For this question, the variable Death Rate is defined as the number of deaths in accidents involving cars from a particular year of manufacture, divided by the number of accidents.
+
+The analysis of the death rate by year of vehicle manufacture shows that there is a relatively strong negative correlation between the recentness of the year of manufacture of a vehicle, and the likelihood that a vehicle manufactured in that year will be involved in a fatal accident. The graph shows that a person is more than twice as likely to be killed in an accident if they are in a car manufactured in the late 1980s, as opposed to a car manufactured in the last 5 years.
+
+In the linear model which was fitted to the data, for every year older a car is, the death rate increases by around 0.0002 deaths per accident. This linear model fits the data quite well; the R-squared is around 0.6, and the residuals are fairly evenly spaced around 0.
+
+The reason for the decline in the death rate associated with more recently manufactured vehicles is improved safety standards. Cars built today contain far more structural features designed to protect occupants in the event of an accident. They also possess better braking capability, as well as extensive electronic systems that warn drivers of impending hazards.
+
 \printbibliography
 
 \end{document}

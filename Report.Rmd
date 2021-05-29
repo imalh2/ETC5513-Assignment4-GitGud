@@ -51,6 +51,8 @@ knitr::opts_chunk$set(echo = FALSE,
 library(tidyverse)
 library(lubridate)
 library(janitor)
+library(ggResidpanel)
+library(broom)
 library(knitr)
 library(kableExtra)
 library(bookdown)
@@ -142,7 +144,6 @@ accidents %>%
 
 Regarding to plot \@ref(fig:chen2),it indicates that there is a stable increasing number of car accidents from Sunday to Friday then reach the highest number on Friday. We could understand it from the following reasons: people are getting more and more exhausted during the whole working week, and many people will choose to hang out on Friday night which increase the percentage of driving drunk or reckless. 
 
-
 \subsection*{Accidents by hour and Death Rate by hour}
 
 ```{r chen3, fig.cap= "Car Accidents by hour"}
@@ -198,6 +199,125 @@ When comparing plot \@ref(fig:chen3) and plot \@ref(fig:chen4), we could notice 
 
 The possible reasons for above results are: both 8 o'clock in the morning and 5 o'clock in the afternoon are the commuter time, which make the traffic busier and more cars on roads, so more accidents. However, most of the accidents won't be too server due to the packed traffic. The 2 o'clock in the midnight is different. First, drivers would be more sleepy and more drivers would take the risk of drunk driving after attending parties in the night which make the accidents have a higher death rate.
 
+\section*{Effect of speed and vehicle age on death rate}
+
+\subsection*{Death rate by speed zone}
+
+```{r accidents-by-speed-zone}
+accidents_by_speed_zone <- accidents %>%
+  count(speed_zone,
+        name = "Accidents")
+```
+
+```{r deaths-by-speed-zone}
+deaths_by_speed_zone <- accidents %>%
+  group_by(speed_zone) %>%  
+  tally(no_persons_killed,
+        name = "Deaths")
+```
+
+```{r deaths-per-accident-by-speed-zone}
+deaths_by_accident <- accidents_by_speed_zone %>%
+  left_join(deaths_by_speed_zone) %>%
+  mutate(Deaths_by_accident = Deaths/Accidents)
+```
+
+```{r deaths-per-accident-plot}
+deaths_by_accident %>%
+  mutate(speed_zone = as.numeric(speed_zone)) %>%
+  filter(speed_zone %in% seq(30, 110, 10)) %>% 
+
+  ggplot(aes(y = Deaths_by_accident, 
+             x = speed_zone)) + 
+  geom_line() +
+  labs(x = "Speed Zone",
+       y = "Death Rate")
+```
+
+```{r deaths-per-accident-table-rename}
+deaths_by_accident_table <- deaths_by_accident %>%
+  rename("Speed Zone" = speed_zone, "Death Rate" = Deaths_by_accident)
+```
+
+```{r deaths-per-accident-table}
+deaths_by_accident_table %>%
+  kable(caption = "Death Rate per Speed Zone") %>%
+  kable_styling(bootstrap_options = "striped")
+```
+
+For this question, the variable Death Rate is defined as the number of deaths in a given speed zone over the time period analysed, divided by the number of accidents. All of these figures can be seen in the table. 
+
+The analysis for this question works on the reasonable assumption that accidents that occur in higher speed zones occur at higher speeds. The analysis shows that there is a very strong association between the level of speed permitted in a certain zone, and the likelihood of dying in an accident in that zone. As the level of speed permitted increases, the probability of dying in an accident rises sharply. The death rate from accidents in 40km/h zones is around 0.005, where as in 110km/h zones, the death rate is around 0.064; that is, you are nearly 13 times more likely to be killed in an accident in a 110km/h zone, as opposed to a 40km/h zone. 
+
+The reason for this difference in the death rate is fairly obvious; higher speeds contribute greatly to the severity of accidents. A person's car may be lightly to moderately damaged in a low-speed collision, but is much more likely to suffer massive damage in a high speed collision. This in turn drastically increases the risk of serious injury or death for the occupants. 
+
+\subsection*{Death rate by year of vehicle manufacture}
+
+```{r join-person-and-vehicle}
+person_vehicle <- persons %>%
+  left_join(vehicles)
+```
+
+```{r total-people-involved-in-accidents-per-manufature-year}
+person_vehicle_total <- person_vehicle %>%
+  group_by(vehicle_year_manuf) %>%
+  tally(name = "Persons",
+        sort = TRUE)
+
+person_vehicle_deaths <- person_vehicle %>%
+  filter(inj_level_desc == "Fatality") %>%
+  group_by(vehicle_year_manuf) %>%
+  tally(name = "Fatalities",
+        sort = TRUE)
+```
+
+```{r join-total-and-deaths}
+death_rate_by_year_manuf <- person_vehicle_total %>%
+  left_join(person_vehicle_deaths) %>%
+  mutate(death_rate = Fatalities/Persons) %>%
+  arrange(desc(vehicle_year_manuf))
+```
+
+```{r plot-death-rate-by-year-manuf}
+manuf_year_death_rate <- death_rate_by_year_manuf %>%
+  filter(vehicle_year_manuf >= 1985 & vehicle_year_manuf < 3001)
+
+manuf_year_death_rate %>%
+  ggplot(aes(x = vehicle_year_manuf, 
+             y = death_rate)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Year Manufactured",
+       y = "Death Rate")
+```
+
+\subsubsection*{Regression model residual panel}
+
+```{r regression-model}
+manuf_year_death_rate_lm <- lm(death_rate ~ vehicle_year_manuf, data = manuf_year_death_rate)
+
+resid_panel(manuf_year_death_rate_lm, plot = "all")
+```
+
+\subsubsection*{Goodness of fit tables}
+
+```{r goodness-of-fit-tables}
+tidy(manuf_year_death_rate_lm) %>% 
+  kable() %>% 
+  kable_styling(bootstrap_options = "striped")
+
+glance(manuf_year_death_rate_lm) %>% 
+  kable() %>% 
+  kable_styling(bootstrap_options = "striped")
+```
+
+For this question, the variable Death Rate is defined as the number of deaths in accidents involving cars from a particular year of manufacture, divided by the number of accidents. 
+
+The analysis of the death rate by year of vehicle manufacture shows that there is a relatively strong negative correlation between the recentness of the year of manufacture of a vehicle, and the likelihood that a vehicle manufactured in that year will be involved in a fatal accident. The graph shows that a person is more than twice as likely to be killed in an accident if they are in a car manufactured in the late 1980s, as opposed to a car manufactured in the last 5 years. 
+
+In the linear model which was fitted to the data, for every year older a car is, the death rate increases by around 0.0002 deaths per accident. This linear model fits the data quite well; the R-squared is around 0.6, and the residuals are fairly evenly spaced around 0. 
+
+The reason for the decline in the death rate associated with more recently manufactured vehicles is improved safety standards. Cars built today contain far more structural features designed to protect occupants in the event of an accident. They also possess better braking capability, as well as extensive electronic systems that warn drivers of impending hazards. 
 
 
 
