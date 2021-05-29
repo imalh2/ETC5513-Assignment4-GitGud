@@ -70,3 +70,22 @@ accidents_per_year <- accidents %>%
 ggplotly( accidents_per_year)
 ```
 
+### Accidents by weekday
+
+```{r day-plot}
+accidents %>%
+  count(Weekday,
+        name = "Accidents") %>% 
+  ggplot(aes(x = Weekday, 
+             y = Accidents)) +
+  geom_bar(stat = "identity", 
+           fill = "#999999") +
+  ylab("Number of Car Accidents") +
+  geom_text(aes(label = Accidents), 
+            vjust = -1, 
+            color = "black", 
+            size = 3)
+```
+
+
+
