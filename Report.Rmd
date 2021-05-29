@@ -84,7 +84,21 @@ accidents <- accidents %>%
 ```
 
 
+# SECTION 1 - Kaihao Chen
 
+## Accidents per year
+
+```{r accidents-per-year}
+accidents_per_year <- accidents %>%
+  count(Year) %>% 
+  ggplot(aes(x = Year, 
+             y = n)) +
+  geom_line() +
+  xlab("Year(2006 ~ 2020)") +
+  ylab("Number of Car Accidents")
+
+accidents_per_year
+```
 
 
 
