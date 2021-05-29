@@ -95,7 +95,12 @@ accidents_per_year <- accidents %>%
              y = n)) +
   geom_line() +
   xlab("Year(2006 ~ 2020)") +
-  ylab("Number of Car Accidents")
+  ylab("Number of Car Accidents") +
+  geom_point() +
+  geom_text(aes(label = n), 
+            vjust = -1, 
+            color = "black",
+            size = 2) 
 
 accidents_per_year
 ```
@@ -120,6 +125,7 @@ accidents %>%
              y = Accidents)) +
   geom_bar(stat = "identity", 
            fill = "#999999") +
+  ylab("Number of Car Accidents") +
   geom_text(aes(label = Accidents), 
             vjust = -1, 
             color = "black", 
@@ -135,9 +141,16 @@ accidents_by_hour <- accidents %>%
         name = "Accidents") 
 
 accidents_by_hour %>%
-  ggplot(aes(y = Accidents, 
-             x = Hour)) + 
-  geom_line()
+  ggplot(aes(x = Hour, 
+             y = Accidents)) + 
+  geom_line() +
+  xlab("Time") +
+  ylab("Number of Car Accidents") +
+  geom_point() +
+  geom_text(aes(label = Accidents), 
+            vjust = -1, 
+            color = "black",
+            size = 2) 
 
 ```
 
@@ -155,14 +168,21 @@ deaths_by_hour <- accidents %>%
 ```{r deaths-per-accident-by-hour}
 deaths_per_accident_by_hour <- accidents_by_hour %>%
   left_join(deaths_by_hour) %>%
-  mutate(Deaths_per_accident = Deaths/Accidents)
+  mutate(Deaths_per_accident = round(Deaths/Accidents, digit = 4))
 ```
 
 ```{r deaths per accident by hour plot}
 deaths_per_accident_by_hour %>%
   ggplot(aes(x = Hour, 
              y = Deaths_per_accident)) +
-  geom_line()
+  geom_line() +
+  xlab("Time") +
+  ylab("Death Rate of Car Accidents") +
+  geom_point() +
+  geom_text(aes(label = Deaths_per_accident), 
+            vjust = -1, 
+            color = "black",
+            size = 2) 
 ```
 
 
