@@ -84,7 +84,7 @@ accidents <- accidents %>%
 ```
 
 
-\section*{1 - Kaihao Chen}
+\section*{Temporal factors analysis}
 
 \subsection*{Accidents per year}
 
@@ -105,7 +105,6 @@ accidents_per_year <- accidents %>%
 accidents_per_year
 ```
 
-**Analysis**
 
 According to plot \@ref(fig:chen1), the increasing number of car accidents remained relatively stable from 2006 to 2014, around 14000. After 2014, the increasing speed became faster and then reached the first peak in 2015, second peak in 2016: 15852.After 2016, it started to drop. There is one outstanding change between 2019 and 2020, which it plummeted down from 14164 to 6060. The possible reason is the coming of covid 19 pandemic and the lockdown of Victoria, which made less car on roads, less accidents happened.
 
@@ -140,8 +139,6 @@ accidents %>%
             color = "black", 
             size = 3)
 ```
-
-**Analysis**
 
 Regarding to plot \@ref(fig:chen2),it indicates that there is a stable increasing number of car accidents from Sunday to Friday then reach the highest number on Friday. We could understand it from the following reasons: people are getting more and more exhausted during the whole working week, and many people will choose to hang out on Friday night which increase the percentage of driving drunk or reckless. 
 
@@ -196,8 +193,6 @@ deaths_per_accident_by_hour %>%
             size = 2) 
 ```
 
-
-**Analysis**
 
 When comparing plot \@ref(fig:chen3) and plot \@ref(fig:chen4), we could notice that these two trend are indicating opposite story, which is the higher number of accidents actually with lower death rate during the same specific time. For examle, 8 o'çlock in the morning reached the first peak of car accidents. However, the death rate of it was the lowest. And the point of 5 o'clock tells a similar story. The \@ref(fig:chen4) actually shows although 2 o'clock in the midnight has almost the lowest volume of car accidents, it has the highest death rate. 
 
