@@ -88,7 +88,7 @@ accidents <- accidents %>%
 
 \subsection*{Accidents per year}
 
-```{r P1}
+```{r chen1}
 accidents_per_year <- accidents %>%
   count(Year) %>% 
   ggplot(aes(x = Year, 
@@ -105,6 +105,8 @@ accidents_per_year <- accidents %>%
 accidents_per_year
 ```
 
+**Analysis**
+According to \@ref(fig:chen1), the increasing number of car accidents remained relatively stable from 2006 to 2014, around 14000. After 2014, the increasing speed became faster and then reached the first peak in 2015, second peak in 2016: 15852.After 2016, it started to drop. There is one outstanding change between 2019 and 2020, which it plummeted down from 14164 to 6060. The possible reason is the coming of covid 19 pandemic and the lockdown of Victoria, which made less car on roads, less accidents happened.
 
 
 \subsection*{Accidents by weekday}
