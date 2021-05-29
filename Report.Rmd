@@ -101,7 +101,15 @@ accidents_per_year
 ```
 
 
+## Accidents by weekday
 
+```{r accidents-by-day-table}
+accidents_by_weekday <- accidents %>%
+  count(Weekday,
+        name = "Accidents")
+
+kable(accidents_by_weekday)
+```
 
 
 
