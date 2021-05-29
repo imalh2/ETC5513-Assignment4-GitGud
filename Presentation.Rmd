@@ -459,7 +459,6 @@ Findings from the data analysis:
 3. Young males are those who are most likely to be involved in an accident, and motorcyclists and pedestrians are most likely to die in an accident. Additionally, regional highways tend to be the deadliest roads in Victoria
 
 
-
 References {data-icon="fa-table"}
 =====================================
 

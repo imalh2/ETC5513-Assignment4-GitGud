@@ -481,3 +481,4 @@ The analysis produced several pieces of informative results. First, it was found
 \section*{Software and Packages}
 
 This report was created using @Rcore. We also used packages created by @ggresidpanel, @broom, @tidyverse, @lubridate, @janitor, @knitr, @kableextra, @bookdown, @ggmap, and @ggthemes.
+
