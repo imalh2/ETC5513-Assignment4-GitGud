@@ -8,6 +8,13 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      eval = TRUE,
+                      message = FALSE, 
+                      warning = FALSE)
+```
+
+```{r setup, include=FALSE}
 library(flexdashboard)
 library(tidyverse)
 library(lubridate)
