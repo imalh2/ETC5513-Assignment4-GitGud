@@ -111,7 +111,7 @@ According to \@ref(fig:chen1), the increasing number of car accidents remained r
 
 \subsection*{Accidents by weekday}
 
-```{r accidents-by-day-table}
+```{r chen2}
 accidents_by_weekday <- accidents %>%
   count(Weekday,
         name = "Accidents")
@@ -139,6 +139,9 @@ accidents %>%
             color = "black", 
             size = 3)
 ```
+
+**Analysis**
+Regarding to \@ref(fig:chen2),it indicates that there is a stable increasing number of car accidents from Sunday to Friday then reach the highest number on Friday. We could understand it from the following reasons: people are getting more and more exhausted during the whole working week, and many people will choose to hang out on Friday night which increase the percentage of driving drunk or reckless. 
 
 
 \subsection*{Accidents by hour}
