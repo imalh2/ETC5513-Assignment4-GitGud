@@ -222,23 +222,3 @@ user_type %>%
 
 As per figure \@ref(fig:user-death-rate), **pedestrians** are at the most risk of death per accident, this is expected as pedestrians have no protection at all. **Motorcyclists** and **pillion passengers** (motorcycle passengers) occupy the second and third highest death rate per accident. It is surprising, however, that **bicyclists**'s death rate is similar to that of car drivers and passengers, as one would expect that bicyclists would have a death rate similar to that of pedestrians or motorcyclists, due to the lack of protection besides a helmet.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

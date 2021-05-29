@@ -135,3 +135,59 @@ user_type %>%
                                    hjust = 1))
   
 ```
+
+### **Roads with Most Accidents and Deaths**
+
+```{r join-road-names}
+roads_accidents <- accidents %>%
+  left_join(locations) %>% 
+  mutate(Road = paste(road_name,
+                      road_type))
+```
+
+```{r accidents-by-road}
+accidents_per_road <- roads_accidents %>%
+  count(Road, 
+        name = "Accidents"
+        ,sort = T)
+
+deaths_per_road <- roads_accidents %>%
+  group_by(Road) %>%
+  tally(no_persons_killed,
+        name = "Deaths",
+        sort = TRUE)
+
+accidents_per_road %>% 
+  head(8) %>% 
+  kable(caption = "Accidents by road") %>% 
+  kable_styling(bootstrap_options = "striped")
+```
+
+```{r deadliest-road}
+deadliest_road <- accidents_per_road %>%
+  left_join(deaths_per_road) %>%
+  filter(Accidents >= 100) %>%
+  mutate(Deaths_per_accident = Deaths/Accidents) %>%
+  arrange(desc(Deaths_per_accident))
+
+deadliest_road %>% 
+  head(8) %>% 
+  kable(caption = "Deadliest roads") %>% 
+  kable_styling(bootstrap_options = "striped")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
