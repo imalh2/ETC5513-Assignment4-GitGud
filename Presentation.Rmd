@@ -55,6 +55,51 @@ accidents <- accidents %>%
                         abbr = FALSE))
 ```
 
+Introduction {data-icon="fa-address-book"}
+===================================== 
+
+Row {data-width = 600}
+-----
+### **Introduction**
+
+The data used in the report was obtained from VicRoads, and contains comprehensive information on approximately 200,000 accidents that occurred in the state from 2006 to 2020. 
+
+
+**Purpose of this analysis report**:
+  
+* To explore the trends and patterns in Victoria’s road safety data
+
+* Identifying which factors are associated with a higher risk of accident or death
+
+* And seeking to explain those relationships
+
+
+**Research questions**:
+
+* Part 1: 
+  
+  - The impact of temporal factors, such as year, weekday and hour, on the number of accidents.
+
+* Part 2: 
+
+  - The relationship of speed and the age of vehicles with the death rate from accidents.
+
+* Part 3: 
+
+  - Explores the effect of age and gender on accident numbers, as well as which roads in Victoria are most accident-prone and most deadly.
+
+***
+
+**TEAM MEMBERS**
+
+|Name	            |Email Address              |Student Id|
+|:---------------:|:-------------------------:|:--------:|
+|Kaihao Chen      |kche154@student.monash.edu | 27439992 |
+|Arek Chouzadjian |acho0007@student.monash.edu| 28644182 |
+|Ibrahim Al-Hindi |imalh2@student.monash.edu  | 24112488 |
+ 
+***
+
 Part 1 {data-icon="fa-battery-quarter"}
 ===================================== 
 
