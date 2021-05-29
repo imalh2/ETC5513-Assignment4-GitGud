@@ -445,3 +445,15 @@ Column {.sidebar data-width=350}
 4. Pedestrians are the biggest casualty of accidents with the highest number of fatalities. Bicyclists are the least at risk of death
 
 ***
+
+
+Conclusions {data-icon="fa-table"}
+=====================================     
+
+Findings from the data analysis:
+
+1. Accidents increase gradually throughout the working week, and whilst accidents are most common in evening peak hour, it is the least deadly time of day in which to have an accident
+
+2. Higher speeds dramatically increase the risk of dying in an accident, and more recent models of car are far less prone to fatal accidents than older varieties. This is due to improved safety standards in vehicle manufacturing in recent decades
+
+3. Young males are those who are most likely to be involved in an accident, and motorcyclists and pedestrians are most likely to die in an accident. Additionally, regional highways tend to be the deadliest roads in Victoria
