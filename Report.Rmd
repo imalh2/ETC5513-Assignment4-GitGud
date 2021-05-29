@@ -113,8 +113,13 @@ accidents_by_weekday <- accidents %>%
   count(Weekday,
         name = "Accidents")
 
-kable(accidents_by_weekday)
+accidents_by_weekday %>%
+  kable(caption = "Number of Car Accidents happended by weekday") %>%
+  kable_styling(bootstrap_options = "basic")
+
+
 ```
+
 
 
 ```{r day-plot}
