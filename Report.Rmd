@@ -84,11 +84,11 @@ accidents <- accidents %>%
 ```
 
 
-# SECTION 1 - Kaihao Chen
+\section*{1 - Kaihao Chen}
 
-## Accidents per year
+\subsection*{Accidents per year}
 
-```{r accidents-per-year}
+```{r P1}
 accidents_per_year <- accidents %>%
   count(Year) %>% 
   ggplot(aes(x = Year, 
@@ -106,7 +106,8 @@ accidents_per_year
 ```
 
 
-## Accidents by weekday
+
+\subsection*{Accidents by weekday}
 
 ```{r accidents-by-day-table}
 accidents_by_weekday <- accidents %>%
@@ -138,7 +139,7 @@ accidents %>%
 ```
 
 
-## Accidents by hour
+\subsection*{Accidents by hour}
 
 ```{r accidents-by-hour-plot}
 accidents_by_hour <- accidents %>%
@@ -160,8 +161,7 @@ accidents_by_hour %>%
 ```
 
 
-
-## Deaths by hour
+\subsection*{Deaths by hour}
 
 ```{r deaths-by-hour}
 deaths_by_hour <- accidents %>%
