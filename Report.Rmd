@@ -87,6 +87,12 @@ accidents <- accidents %>%
                         abbr = FALSE))
 ```
 
+
+\section*{Introduction}
+
+Road safety is a major public policy issue in the state of Victoria. Every year, there are thousands of accidents on the state’s road network, in which hundreds of people are killed or injured. The aim of this report is to explore the trends and patterns in Victoria’s road safety data, identifying which factors are associated with a higher risk of accident or death, and seeking to explain those relationships. 
+
+
 \section*{Temporal factors analysis}
 
 \subsection*{Accidents per year}
