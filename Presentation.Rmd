@@ -14,6 +14,9 @@ library(lubridate)
 library(janitor)
 library(knitr)
 library(kableExtra)
+library(ggmap)
+library(ggthemes)
+library(plotly)
 ```
 
 ```{r load-data}
@@ -43,7 +46,32 @@ accidents <- accidents %>%
                         abbr = FALSE))
 ```
 
+Part 3 {data-icon="fa-battery-three-quarters"}
+===================================== 
 
+Row {.tabset data-height=800}
+---------
+
+### **Accidents Map**
+
+```{r accidents-map}
+location_box <- c(min(nodes$long), 
+                  min(nodes$lat), 
+                  max(nodes$long),
+                  max(nodes$lat))
+
+location_map <- get_map(location = location_box, 
+                        source = 'osm')
+
+  ggmap(location_map) + 
+    geom_point(data = nodes,
+               aes(x = long,
+                   y = lat), 
+               colour="#0072B2", 
+               alpha=0.5, 
+               size = 0.05) +
+    theme_map()
+```
 
 
 
