@@ -304,20 +304,25 @@
 \begin{document}
 \titlepage
 
-\hypertarget{section-1---kaihao-chen}{%
-\section{SECTION 1 - Kaihao Chen}\label{section-1---kaihao-chen}}
+\section*{1 - Kaihao Chen}
 
-\hypertarget{accidents-per-year}{%
-\subsection{Accidents per year}\label{accidents-per-year}}
+\subsection*{Accidents per year}
 
-\includegraphics{Report_files/figure-latex/accidents-per-year-1.pdf}
+\begin{figure}
+\centering
+\includegraphics{Report_files/figure-latex/chen1-1.pdf}
+\caption{\label{fig:chen1}Car Accidents per year}
+\end{figure}
 
-\hypertarget{accidents-by-weekday}{%
-\subsection{Accidents by weekday}\label{accidents-by-weekday}}
+\textbf{Analysis}
+
+According to plot \ref{fig:chen1}, the increasing number of car accidents remained relatively stable from 2006 to 2014, around 14000. After 2014, the increasing speed became faster and then reached the first peak in 2015, second peak in 2016: 15852.After 2016, it started to drop. There is one outstanding change between 2019 and 2020, which it plummeted down from 14164 to 6060. The possible reason is the coming of covid 19 pandemic and the lockdown of Victoria, which made less car on roads, less accidents happened.
+
+\subsection*{Accidents by weekday}
 
 \begin{table}
 
-\caption{\label{tab:accidents-by-day-table}Number of Car Accidents happended by weekday}
+\caption{\label{tab:unnamed-chunk-1}Number of Car Accidents happended by weekday}
 \centering
 \begin{tabular}[t]{l|r}
 \hline
@@ -340,35 +345,35 @@ Saturday & 28883\\
 \end{tabular}
 \end{table}
 
-\begin{table}
+\begin{figure}
 \centering
-\begin{tabular}[t]{l>{}l}
-\toprule
-Weekday & logo\\
-\midrule
-Sunday & \includegraphics[width=0.17in, height=0.17in]{7.png}\\
-Monday & \includegraphics[width=0.17in, height=0.17in]{1.png}\\
-Tudesday & \includegraphics[width=0.17in, height=0.17in]{2.png}\\
-Wednesday & \includegraphics[width=0.17in, height=0.17in]{3.png}\\
-Thursday & \includegraphics[width=0.17in, height=0.17in]{4.png}\\
-\addlinespace
-Friday & \includegraphics[width=0.17in, height=0.17in]{5.png}\\
-Saturday & \includegraphics[width=0.17in, height=0.17in]{6.png}\\
-\bottomrule
-\end{tabular}
-\end{table}
+\includegraphics{Report_files/figure-latex/chen2-1.pdf}
+\caption{\label{fig:chen2}Car Accidents by weekday}
+\end{figure}
 
-\includegraphics{Report_files/figure-latex/day-plot-1.pdf}
+\textbf{Analysis}
 
-\hypertarget{accidents-by-hour}{%
-\subsection{Accidents by hour}\label{accidents-by-hour}}
+Regarding to plot \ref{fig:chen2},it indicates that there is a stable increasing number of car accidents from Sunday to Friday then reach the highest number on Friday. We could understand it from the following reasons: people are getting more and more exhausted during the whole working week, and many people will choose to hang out on Friday night which increase the percentage of driving drunk or reckless.
 
-\includegraphics{Report_files/figure-latex/accidents-by-hour-plot-1.pdf}
+\subsection*{Accidents by hour and Death Rate by hour}
 
-\hypertarget{deaths-by-hour}{%
-\subsection{Deaths by hour}\label{deaths-by-hour}}
+\begin{figure}
+\centering
+\includegraphics{Report_files/figure-latex/chen3-1.pdf}
+\caption{\label{fig:chen3}Car Accidents by hour}
+\end{figure}
 
-\includegraphics{Report_files/figure-latex/deaths per accident by hour plot-1.pdf}
+\begin{figure}
+\centering
+\includegraphics{Report_files/figure-latex/chen4-1.pdf}
+\caption{\label{fig:chen4}Death Rate by hour}
+\end{figure}
+
+\textbf{Analysis}
+
+When comparing plot \ref{fig:chen3} and plot \ref{fig:chen4}, we could notice that these two trend are indicating opposite story, which is the higher number of accidents actually with lower death rate during the same specific time. For examle, 8 o'çlock in the morning reached the first peak of car accidents. However, the death rate of it was the lowest. And the point of 5 o'clock tells a similar story. The \ref{fig:chen4} actually shows although 2 o'clock in the midnight has almost the lowest volume of car accidents, it has the highest death rate.
+
+The possible reasons for above results are: both 8 o'clock in the morning and 5 o'clock in the afternoon are the commuter time, which make the traffic busier and more cars on roads, so more accidents. However, most of the accidents won't be too server due to the packed traffic. The 2 o'clock in the midnight is different. First, drivers would be more sleepy and more drivers would take the risk of drunk driving after attending parties in the night which make the accidents have a higher death rate.
 
 \printbibliography
 

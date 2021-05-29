@@ -88,7 +88,7 @@ accidents <- accidents %>%
 
 \subsection*{Accidents per year}
 
-```{r chen1}
+```{r chen1, fig.cap= "Car Accidents per year"}
 accidents_per_year <- accidents %>%
   count(Year) %>% 
   ggplot(aes(x = Year, 
@@ -106,12 +106,13 @@ accidents_per_year
 ```
 
 **Analysis**
-According to \@ref(fig:chen1), the increasing number of car accidents remained relatively stable from 2006 to 2014, around 14000. After 2014, the increasing speed became faster and then reached the first peak in 2015, second peak in 2016: 15852.After 2016, it started to drop. There is one outstanding change between 2019 and 2020, which it plummeted down from 14164 to 6060. The possible reason is the coming of covid 19 pandemic and the lockdown of Victoria, which made less car on roads, less accidents happened.
+
+According to plot \@ref(fig:chen1), the increasing number of car accidents remained relatively stable from 2006 to 2014, around 14000. After 2014, the increasing speed became faster and then reached the first peak in 2015, second peak in 2016: 15852.After 2016, it started to drop. There is one outstanding change between 2019 and 2020, which it plummeted down from 14164 to 6060. The possible reason is the coming of covid 19 pandemic and the lockdown of Victoria, which made less car on roads, less accidents happened.
 
 
 \subsection*{Accidents by weekday}
 
-```{r chen2}
+```{r }
 accidents_by_weekday <- accidents %>%
   count(Weekday,
         name = "Accidents")
@@ -125,7 +126,7 @@ accidents_by_weekday %>%
 
 
 
-```{r day-plot}
+```{r chen2, fig.cap= "Car Accidents by weekday"}
 accidents %>%
   count(Weekday,
         name = "Accidents") %>% 
@@ -141,12 +142,13 @@ accidents %>%
 ```
 
 **Analysis**
-Regarding to \@ref(fig:chen2),it indicates that there is a stable increasing number of car accidents from Sunday to Friday then reach the highest number on Friday. We could understand it from the following reasons: people are getting more and more exhausted during the whole working week, and many people will choose to hang out on Friday night which increase the percentage of driving drunk or reckless. 
+
+Regarding to plot \@ref(fig:chen2),it indicates that there is a stable increasing number of car accidents from Sunday to Friday then reach the highest number on Friday. We could understand it from the following reasons: people are getting more and more exhausted during the whole working week, and many people will choose to hang out on Friday night which increase the percentage of driving drunk or reckless. 
 
 
 \subsection*{Accidents by hour and Death Rate by hour}
 
-```{r chen3}
+```{r chen3, fig.cap= "Car Accidents by hour"}
 accidents_by_hour <- accidents %>%
   count(Hour,
         name = "Accidents") 
@@ -180,7 +182,7 @@ deaths_per_accident_by_hour <- accidents_by_hour %>%
   mutate(Deaths_per_accident = round(Deaths/Accidents, digit = 4))
 ```
 
-```{r chen4}
+```{r chen4, fig.cap= "Death Rate by hour"}
 deaths_per_accident_by_hour %>%
   ggplot(aes(x = Hour, 
              y = Deaths_per_accident)) +
@@ -194,10 +196,15 @@ deaths_per_accident_by_hour %>%
             size = 2) 
 ```
 
+
 **Analysis**
-When comparing \@ref(fig:chen3) and \@ref(fig:chen4), we could notice that these two trend are indicating opposite story, which is the higher number of accidents actually with lower death rate during the same specific time. For examle, 8 o'çlock in the morning reached the first peak of car accidents. However, the death rate of it was the lowest. And the point of 5 o'clock tells a similar story. The \@ref(fig:chen4) actually shows although 2 o'clock in the midnight has almost the lowest volume of car accidents, it has the highest death rate. 
+
+When comparing plot \@ref(fig:chen3) and plot \@ref(fig:chen4), we could notice that these two trend are indicating opposite story, which is the higher number of accidents actually with lower death rate during the same specific time. For examle, 8 o'çlock in the morning reached the first peak of car accidents. However, the death rate of it was the lowest. And the point of 5 o'clock tells a similar story. The \@ref(fig:chen4) actually shows although 2 o'clock in the midnight has almost the lowest volume of car accidents, it has the highest death rate. 
 
 The possible reasons for above results are: both 8 o'clock in the morning and 5 o'clock in the afternoon are the commuter time, which make the traffic busier and more cars on roads, so more accidents. However, most of the accidents won't be too server due to the packed traffic. The 2 o'clock in the midnight is different. First, drivers would be more sleepy and more drivers would take the risk of drunk driving after attending parties in the night which make the accidents have a higher death rate.
+
+
+
 
 
 
