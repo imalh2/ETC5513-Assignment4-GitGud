@@ -109,3 +109,29 @@ persons %>%
 ggplotly()
 ```
 
+### **Death Rate by User Type**
+
+```{r user-death-rate}
+user_type <- persons %>% 
+  count(road_user_type_desc, 
+        name = "User")
+
+user_type_fatal <- persons %>% 
+  filter(inj_level_desc == "Fatality") %>% 
+  count(road_user_type_desc, 
+        name = "Fatal")
+
+user_type %>% 
+  left_join(user_type_fatal) %>% 
+  mutate(death_rate = Fatal / User) %>% 
+  
+  ggplot(aes(x = fct_reorder(road_user_type_desc, 
+                             death_rate), 
+             y = death_rate)) +
+  geom_col(fill = "#999999") +
+  labs(x = "User Type",
+       y = "Death Rate") +
+  theme(axis.text.x = element_text(angle = 45,
+                                   hjust = 1))
+  
+```
