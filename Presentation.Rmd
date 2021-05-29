@@ -14,6 +14,7 @@ library(lubridate)
 library(janitor)
 library(knitr)
 library(kableExtra)
+library(plotly)
 ```
 
 ```{r load-data}
@@ -45,5 +46,27 @@ accidents <- accidents %>%
 
 
 
+Part 1 {data-icon="fa-battery-quarter"}
+===================================== 
 
+Row {data-width=600}
+--------------------------------
+### Accidents per year
+
+```{r chen1}
+accidents_per_year <- accidents %>%
+  count(Year) %>% 
+  ggplot(aes(x = Year, 
+             y = n)) +
+  geom_line() +
+  xlab("Year(2006 ~ 2020)") +
+  ylab("Number of Car Accidents") +
+  geom_point() +
+  geom_text(aes(label = n), 
+            vjust = -1, 
+            color = "black",
+            size = 2) 
+
+ggplotly( accidents_per_year)
+```
 
