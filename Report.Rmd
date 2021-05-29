@@ -474,3 +474,10 @@ user_type %>%
 
 As per figure \@ref(fig:user-death-rate), **pedestrians** are at the most risk of death per accident, this is expected as pedestrians have no protection at all. **Motorcyclists** and **pillion passengers** (motorcycle passengers) occupy the second and third highest death rate per accident. It is surprising, however, that **bicyclists**'s death rate is similar to that of car drivers and passengers, as one would expect that bicyclists would have a death rate similar to that of pedestrians or motorcyclists, due to the lack of protection besides a helmet.
 
+\section*{Conclusions}
+
+The analysis produced several pieces of informative results. First, it was found that accidents increase gradually throughout the working week, and that whilst accidents are most common in evening peak hour, that period is the least deadly time of day in which to have an accident. Higher speeds dramatically increase the risk of death in an accident, and more recent car models are far less prone to fatal accidents than older varieties. Finally, being young and male is most strongly associated with having an accident, and regional highways tend to be the deadliest roads in the state.
+
+\section*{Software and Packages}
+
+This report was created using @Rcore. We also used packages created by @ggresidpanel, @broom, @tidyverse, @lubridate, @janitor, @knitr, @kableextra, @bookdown, @ggmap, @ggthemes.
