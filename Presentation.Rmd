@@ -8,6 +8,13 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      eval = TRUE,
+                      message = FALSE, 
+                      warning = FALSE)
+```
+
+```{r libraries}
 library(flexdashboard)
 library(tidyverse)
 library(lubridate)
@@ -17,7 +24,8 @@ library(ggResidpanel)
 library(broom)
 library(knitr)
 library(kableExtra)
-library(plotly)
+library(ggmap)
+library(ggthemes)
 ```
 
 ```{r load-data}
@@ -250,5 +258,145 @@ Column {.sidebar data-width=350}
 
 
 2. A person's risk of dying in an accident is positively correlated with the age of their vehicle; the newer the make, the less likely it is that a person will be killed in an accident. For every year older a vehicle is, the risk of dying if you have an accident in it increases by 0.0002 deaths per accident. The reason for this is improved safety standards for vehicles. 
+
+***
+
+Part 3 {data-icon="fa-battery-three-quarters"}
+===================================== 
+
+Row {.tabset data-height=800}
+---------
+
+### **Accidents Map**
+
+```{r accidents-map}
+location_box <- c(min(nodes$long), 
+                  min(nodes$lat), 
+                  max(nodes$long),
+                  max(nodes$lat))
+
+location_map <- get_map(location = location_box, 
+                        source = 'osm')
+
+  ggmap(location_map) + 
+    geom_point(data = nodes,
+               aes(x = long,
+                   y = lat), 
+               colour="#0072B2", 
+               alpha=0.5, 
+               size = 0.05) +
+    theme_map()
+```
+
+### **Roads with Most Accidents and Highest Death Rates**
+
+```{r join-road-names}
+roads_accidents <- accidents %>%
+  left_join(locations) %>% 
+  mutate(Road = paste(road_name,
+                      road_type))
+```
+
+```{r accidents-by-road}
+accidents_per_road <- roads_accidents %>%
+  count(Road, 
+        name = "Accidents"
+        ,sort = T)
+
+deaths_per_road <- roads_accidents %>%
+  group_by(Road) %>%
+  tally(no_persons_killed,
+        name = "Deaths",
+        sort = TRUE)
+
+accidents_per_road %>% 
+  head(8) %>% 
+  kable(caption = "Accidents by road") %>% 
+  kable_styling(bootstrap_options = "striped")
+```
+
+```{r deadliest-road}
+deadliest_road <- accidents_per_road %>%
+  left_join(deaths_per_road) %>%
+  filter(Accidents >= 100) %>%
+  mutate(Deaths_per_accident = Deaths/Accidents) %>%
+  arrange(desc(Deaths_per_accident))
+
+deadliest_road %>% 
+  head(8) %>% 
+  kable(caption = "Deadliest roads") %>% 
+  kable_styling(bootstrap_options = "striped")
+```
+
+### **Accidents by Gender**
+
+```{r accidents-gender-table}
+persons <- persons %>%
+  mutate(sex = recode(sex,
+                      "F" = "Female",
+                      "M" = "Male",
+                      "U" = "Unknown"))
+```
+
+```{r accidents-gender-plot}
+persons %>% 
+  filter(road_user_type_desc == "Drivers",
+         sex %in% c("Female",
+                    "Male"),
+         age > 15) %>% 
+  count(age,
+        sex,
+        name = "Accidents") %>% 
+  
+  ggplot(aes(x = age,
+             y = Accidents, 
+             color = sex)) +
+  geom_line() +
+  xlab("Age")
+  
+ggplotly()
+```
+
+### **Death Rate by User Type**
+
+```{r user-death-rate}
+user_type <- persons %>% 
+  count(road_user_type_desc, 
+        name = "User")
+
+user_type_fatal <- persons %>% 
+  filter(inj_level_desc == "Fatality") %>% 
+  count(road_user_type_desc, 
+        name = "Fatal")
+
+user_type %>% 
+  left_join(user_type_fatal) %>% 
+  mutate(death_rate = Fatal / User) %>% 
+  
+  ggplot(aes(x = fct_reorder(road_user_type_desc, 
+                             death_rate), 
+             y = death_rate)) +
+  geom_col(fill = "#999999") +
+  labs(x = "User Type",
+       y = "Death Rate") +
+  theme(axis.text.x = element_text(angle = 45,
+                                   hjust = 1))
+  
+```
+
+Column {.sidebar data-width=350}
+----
+
+***
+
+> **Findings**
+
+1. The accidents are concentrated around Melbourne and branch out as we get further away. Small concentrations are also present around other cities and towns
+
+2. Regional highways are the deadliest types of roads
+
+3. Males commit more accidents than females. Both commit the highest number of accidents as new drivers at a young age, the accidents steadily decrease as the age increases
+
+4. Pedestrians are the biggest casualty of accidents with the highest number of fatalities. Bicyclists are the least at risk of death
 
 ***

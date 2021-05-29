@@ -56,6 +56,8 @@ library(broom)
 library(knitr)
 library(kableExtra)
 library(bookdown)
+library(ggmap)
+library(ggthemes)
 ```
 
 ```{r load-data}
@@ -84,7 +86,6 @@ accidents <- accidents %>%
                         label = TRUE,
                         abbr = FALSE))
 ```
-
 
 \section*{Temporal factors analysis}
 
@@ -311,15 +312,146 @@ glance(manuf_year_death_rate_lm) %>%
   kable_styling(bootstrap_options = "striped")
 ```
 
-For this question, the variable Death Rate is defined as the number of deaths in accidents involving cars from a particular year of manufacture, divided by the number of accidents. 
+For this question, the variable Death Rate is defined as the number of deaths in accidents involving cars from a particular year of manufacture, divided by the number of accidents.
 
 The analysis of the death rate by year of vehicle manufacture shows that there is a relatively strong negative correlation between the recentness of the year of manufacture of a vehicle, and the likelihood that a vehicle manufactured in that year will be involved in a fatal accident. The graph shows that a person is more than twice as likely to be killed in an accident if they are in a car manufactured in the late 1980s, as opposed to a car manufactured in the last 5 years. 
 
-In the linear model which was fitted to the data, for every year older a car is, the death rate increases by around 0.0002 deaths per accident. This linear model fits the data quite well; the R-squared is around 0.6, and the residuals are fairly evenly spaced around 0. 
+In the linear model which was fitted to the data, for every year older a car is, the death rate increases by around 0.0002 deaths per accident. This linear model fits the data quite well; the R-squared is around 0.6, and the residuals are fairly evenly spaced around 0.
 
-The reason for the decline in the death rate associated with more recently manufactured vehicles is improved safety standards. Cars built today contain far more structural features designed to protect occupants in the event of an accident. They also possess better braking capability, as well as extensive electronic systems that warn drivers of impending hazards. 
+The reason for the decline in the death rate associated with more recently manufactured vehicles is improved safety standards. Cars built today contain far more structural features designed to protect occupants in the event of an accident. They also possess better braking capability, as well as extensive electronic systems that warn drivers of impending hazards.
+
+\section*{Accidents by Locations, Gender and Road User Type}
+
+\subsection*{Accidents Map}
+
+```{r accidents-map, fig.cap="Map of accident locations in Victoria"}
+location_box <- c(min(nodes$long), 
+                  min(nodes$lat), 
+                  max(nodes$long), 
+                  max(nodes$lat))
+
+location_map <- get_map(location = location_box, 
+                        source = 'osm')
+
+  ggmap(location_map) + 
+    geom_point(data = nodes,
+               aes(x = long, 
+                   y = lat), 
+               colour="#0072B2", 
+               alpha=0.5, 
+               size = 0.05) +
+    theme_map()
+```
+
+As shown in figure \@ref(fig:accidents-map), accidents are most highly concentrated around metropolitan Melbourne, and gradually reduce in volume the further we move from Melbourne, with pockets of concentrations in the regional cities such as Bendigo, Ballarat and Geelong. This is due to the population being most present in metropolitan Melbourne, resulting in more accidents, and the population declining as we drift away, resulting in less accidents.
+
+\subsection*{Roads with Most Accidents and Highest Death Rates}
+
+```{r join-road-names}
+roads_accidents <- accidents %>%
+  left_join(locations) %>% 
+  mutate(Road = paste(road_name, road_type))
+```
+
+```{r accidents-by-road}
+accidents_per_road <- roads_accidents %>%
+  count(Road, 
+        name = "Accidents"
+        ,sort = T)
+
+deaths_per_road <- roads_accidents %>%
+  group_by(Road) %>%
+  tally(no_persons_killed,
+        name = "Deaths",
+        sort = TRUE)
+
+accidents_per_road %>% 
+  head(8) %>% 
+  kable(caption = "Accidents by road") %>% 
+  kable_styling(bootstrap_options = "striped")
+```
+
+```{r deadliest-road}
+deadliest_road <- accidents_per_road %>%
+  left_join(deaths_per_road) %>%
+  filter(Accidents >= 100) %>%
+  mutate(Deaths_per_accident = Deaths/Accidents) %>%
+  arrange(desc(Deaths_per_accident))
+
+deadliest_road %>% 
+  head(8) %>% 
+  kable(caption = "Deadliest roads") %>% 
+  kable_styling(bootstrap_options = "striped")
+```
+
+According to table \@ref(tab:accidents-by-road), **Princes Highway**, **High Street** and **Nepean Highway** are the three most accident prone roads in Victoria with `r accidents_per_road[1,2]`, `r accidents_per_road[2,2]`, `r accidents_per_road[3,2]` accidents, respectively. It is important to note that roads with the name "High Street" are quite common and are present in various suburbs in Victoria, therefore the "High Street" displayed in the table is likely a combination of all the accidents that occurred in all the High Streets. When examining the deadliest roads from table \@ref(tab:deadliest-road), it is immediately apparent that **Highways** are the deadliest type of road in Victoria, this is likely a result of highways being locations of higher speed zones, which as we have seen from the previous section, lead to higher death rates.
+
+\subsection*{Accidents by Gender}
+
+```{r accidents-gender-table}
+persons <- persons %>%
+  mutate(sex = recode(sex,
+                      "F" = "Female",
+                      "M" = "Male",
+                      "U" = "Unknown"))
+  
+  
+persons %>% 
+  filter(road_user_type_desc == "Drivers",
+         !is.na(sex)) %>% 
+  count(Sex = sex,
+        name = "Accidents",
+        sort = TRUE) %>% 
+  kable(caption = "Number of accidents by gender") %>% 
+  kable_styling(bootstrap_options = "striped")
+```
+
+```{r accidents-gender-plot, fig.cap="Number of accidents by gender and age"}
+persons %>% 
+  filter(road_user_type_desc == "Drivers",
+         sex %in% c("Female",
+                    "Male"),
+         age > 15) %>% 
+  count(age,
+        sex,
+        name = "Accidents") %>% 
+  
+  ggplot(aes(x = age,
+             y = Accidents, 
+             color = sex)) +
+  geom_line() +
+  xlab("Age")
+```
+
+Table \@ref(tab:accidents-gender-table) shows that there are more accidents committed by males (171,043) than by females (118,307). Figure \@ref(fig:accidents-gender-plot) extends that differential by showing that males commit more accidents than females at all age groups. This could be a result of larger male presence on the roads than females, for example the majority of truck drivers and taxi/uber drivers are male, therefore representing higher numbers and longer times spent on the road. What is common between both genders, however, is that the accident numbers are highest for young and inexperienced drivers before steadily declining as age and experience increase. This is consistent with the findings from @gislason1997medical.
 
 
+\subsection*{User Type Death Rates}
 
+```{r user-death-rate, fig.cap="Death rate by road user type"}
+user_type <- persons %>% 
+  count(road_user_type_desc, 
+        name = "User")
 
+user_type_fatal <- persons %>% 
+  filter(inj_level_desc == "Fatality") %>% 
+  count(road_user_type_desc, 
+        name = "Fatal")
+
+user_type %>% 
+  left_join(user_type_fatal) %>% 
+  mutate(death_rate = Fatal / User) %>% 
+  
+  ggplot(aes(x = fct_reorder(road_user_type_desc, 
+                             death_rate), 
+             y = death_rate)) +
+  geom_col(fill = "#999999") +
+  labs(x = "User Type",
+       y = "Death Rate") +
+  theme(axis.text.x = element_text(angle = 45,
+                                   hjust = 1))
+  
+```
+
+As per figure \@ref(fig:user-death-rate), **pedestrians** are at the most risk of death per accident, this is expected as pedestrians have no protection at all. **Motorcyclists** and **pillion passengers** (motorcycle passengers) occupy the second and third highest death rate per accident. It is surprising, however, that **bicyclists**'s death rate is similar to that of car drivers and passengers, as one would expect that bicyclists would have a death rate similar to that of pedestrians or motorcyclists, due to the lack of protection besides a helmet.
 
