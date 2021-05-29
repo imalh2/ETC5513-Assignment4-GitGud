@@ -55,6 +55,51 @@ accidents <- accidents %>%
                         abbr = FALSE))
 ```
 
+Introduction {data-icon="fa-address-book"}
+===================================== 
+
+Row {data-width = 600}
+-----
+### **Introduction**
+
+The data used in the report was obtained from VicRoads, and contains comprehensive information on approximately 200,000 accidents that occurred in the state from 2006 to 2020. 
+
+
+**Purpose of this analysis report**:
+  
+* To explore the trends and patterns in Victoria’s road safety data
+
+* Identifying which factors are associated with a higher risk of accident or death
+
+* And seeking to explain those relationships
+
+
+**Research questions**:
+
+* Part 1: 
+  
+  - The impact of temporal factors, such as year, weekday and hour, on the number of accidents.
+
+* Part 2: 
+
+  - The relationship of speed and the age of vehicles with the death rate from accidents.
+
+* Part 3: 
+
+  - Explores the effect of age and gender on accident numbers, as well as which roads in Victoria are most accident-prone and most deadly.
+
+***
+
+**TEAM MEMBERS**
+
+|Name	            |Email Address              |Student Id|
+|:---------------:|:-------------------------:|:--------:|
+|Kaihao Chen      |kche154@student.monash.edu | 27439992 |
+|Arek Chouzadjian |acho0007@student.monash.edu| 28644182 |
+|Ibrahim Al-Hindi |imalh2@student.monash.edu  | 24112488 |
+ 
+***
+
 Part 1 {data-icon="fa-battery-quarter"}
 ===================================== 
 
@@ -400,3 +445,72 @@ Column {.sidebar data-width=350}
 4. Pedestrians are the biggest casualty of accidents with the highest number of fatalities. Bicyclists are the least at risk of death
 
 ***
+
+
+Conclusions {data-icon="fa-table"}
+=====================================     
+
+Findings from the data analysis:
+
+1. Accidents increase gradually throughout the working week, and whilst accidents are most common in evening peak hour, it is the least deadly time of day in which to have an accident
+
+2. Higher speeds dramatically increase the risk of dying in an accident, and more recent models of car are far less prone to fatal accidents than older varieties. This is due to improved safety standards in vehicle manufacturing in recent decades
+
+3. Young males are those who are most likely to be involved in an accident, and motorcyclists and pedestrians are most likely to die in an accident. Additionally, regional highways tend to be the deadliest roads in Victoria
+
+
+
+References {data-icon="fa-table"}
+=====================================
+
+Row
+----
+
+### Data
+
+* VicRoads. (2020). *Crash Stats*[Data file]. Retrieved from https://discover.data.vic.gov.au/dataset/crash-stats-data-extract
+
+### Software
+
+* R Core Team (2021). R: A language and environment for statistical computing. R Foundation for Statistical
+  Computing, Vienna, Austria. URL https://www.R-project.org/.
+
+### R Packages
+
+* C. Sievert. Interactive Web-Based Data Visualization with R, plotly, and shiny. Chapman
+  and Hall/CRC Florida, 2020.
+
+* D. Kahle and H. Wickham. ggmap: Spatial Visualization with ggplot2. The R Journal, 5(1), 144-161. URL
+  http://journal.r-project.org/archive/2013-1/kahle-wickham.pdf
+
+* David Robinson, Alex Hayes and Simon Couch (2021). broom: Convert Statistical Objects
+  into Tidy Tibbles. R package version 0.7.5. https://CRAN.R-project.org/package=broom
+
+* Garrett Grolemund, Hadley Wickham (2011). Dates and Times Made Easy with lubridate. Journal of
+  Statistical Software, 40(3), 1-25. URL https://www.jstatsoft.org/v40/i03/.
+
+* Jeffrey B. Arnold (2021). ggthemes: Extra Themes, Scales and Geoms for 'ggplot2'. R package version 4.2.4.
+  https://CRAN.R-project.org/package=ggthemes
+
+* Katherine Goode and Kathleen Rey (2019). ggResidpanel: Panels and Interactive Versions
+  of Diagnostic Plots using 'ggplot2'. R package version 0.3.0.
+  https://CRAN.R-project.org/package=ggResidpanel
+
+* Richard Iannone, JJ Allaire and Barbara Borges (2020). flexdashboard: R Markdown Format for Flexible
+  Dashboards. R package version 0.5.2. https://CRAN.R-project.org/package=flexdashboard
+
+* Sam Firke (2021). janitor: Simple Tools for Examining and Cleaning Dirty Data. R package
+  version 2.1.0. https://CRAN.R-project.org/package=janitor
+  
+* Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43), 1686,
+  https://doi.org/10.21105/joss.01686
+  
+* Yihui Xie (2021). knitr: A General-Purpose Package for Dynamic Report Generation in R. R package version
+  1.32.
+
+Row
+----
+
+<b><font face="Georgia" size="10em" color="#32a0a8"><center>Thank You and Stay Safe!</center></font></b> 
+
+
