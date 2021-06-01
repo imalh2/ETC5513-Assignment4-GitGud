@@ -395,7 +395,11 @@ The possible reasons for above results are: both 8 o'clock in the morning and 5 
 
 \subsection*{Death rate by speed zone}
 
+\begin{figure}
+\centering
 \includegraphics{Report_files/figure-latex/deaths-per-accident-plot-1.pdf}
+\caption{\label{fig:deaths-per-accident-plot}Death rate per speed zone}
+\end{figure}
 
 \begin{table}
 
@@ -434,7 +438,7 @@ Speed Zone & Accidents & Deaths & Death Rate\\
 \end{tabular}
 \end{table}
 
-For this question, the variable Death Rate is defined as the number of deaths in a given speed zone over the time period analysed, divided by the number of accidents. All of these figures can be seen in the table.
+For this question, the variable Death Rate is defined as the number of deaths in a given speed zone over the time period analysed, divided by the number of accidents. All of these figures can be seen in Table \ref{tab:deaths-per-accident-table}, and the relationship can be seen in Figure \ref{fig:deaths-per-accident-plot}.
 
 The analysis for this question works on the reasonable assumption that accidents that occur in higher speed zones occur at higher speeds. The analysis shows that there is a very strong association between the level of speed permitted in a certain zone, and the likelihood of dying in an accident in that zone. As the level of speed permitted increases, the probability of dying in an accident rises sharply. The death rate from accidents in 40km/h zones is around 0.005, where as in 110km/h zones, the death rate is around 0.064; that is, you are nearly 13 times more likely to be killed in an accident in a 110km/h zone, as opposed to a 40km/h zone.
 
@@ -442,7 +446,11 @@ The reason for this difference in the death rate is fairly obvious; higher speed
 
 \subsection*{Death rate by year of vehicle manufacture}
 
+\begin{figure}
+\centering
 \includegraphics{Report_files/figure-latex/plot-death-rate-by-year-manuf-1.pdf}
+\caption{\label{fig:plot-death-rate-by-year-manuf}Death rate by year of manufacture}
+\end{figure}
 
 \subsubsection*{Regression model residual panel}
 
@@ -474,7 +482,7 @@ r.squared & adj.r.squared & sigma & statistic & p.value & df & logLik & AIC & BI
 \end{tabular}
 \end{table}
 
-For this question, the variable Death Rate is defined as the number of deaths in accidents involving cars from a particular year of manufacture, divided by the number of accidents.
+For this question, the variable Death Rate is defined as the number of deaths in accidents involving cars from a particular year of manufacture, divided by the number of accidents. The relationship can be seen in Figure \ref{fig:plot-death-rate-by-year-manuf}.
 
 The analysis of the death rate by year of vehicle manufacture shows that there is a relatively strong negative correlation between the recentness of the year of manufacture of a vehicle, and the likelihood that a vehicle manufactured in that year will be involved in a fatal accident. The graph shows that a person is more than twice as likely to be killed in an accident if they are in a car manufactured in the late 1980s, as opposed to a car manufactured in the last 5 years.
 
