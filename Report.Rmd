@@ -94,7 +94,7 @@ Road safety is a major public policy issue in the state of Victoria. Every year,
 
 \subsection*{Data}
 
-The data used in the report was obtained from VicRoads, and contains comprehensive information on approximately 200,000 accidents that occurred in the state from 2006 to 2020. The dataset is licensed with Creative Commons Attribution 4.0 International. 
+The data used in the report was obtained from @vicroads, and contains comprehensive information on approximately 200,000 accidents that occurred in the state from 2006 to 2020. The dataset is licensed with Creative Commons Attribution 4.0 International. 
 
 \subsection*{Research questions}
 
